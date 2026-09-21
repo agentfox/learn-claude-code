@@ -1,0 +1,31 @@
+name: Test
+
+# Khi nào workflow chạy: mỗi PR nhắm vào main, và mỗi lần push trực tiếp lên main
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+# Quyền tối thiểu cho GITHUB_TOKEN: chỉ đọc mã nguồn
+permissions:
+  contents: read
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+
+      - run: python -m pip install -r requirements-dev.txt
+
+      - run: python -m pytest -v
