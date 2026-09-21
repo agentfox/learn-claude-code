@@ -1,0 +1,3 @@
+This is a sample file.
+
+It was created by Claude Code as a simple example.
