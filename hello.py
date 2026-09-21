@@ -6,7 +6,7 @@ def greeting(name="World"):
 
 
 def main(argv):
-    name = argv[1] if len(argv) > 1 else "World"
+    name = " ".join(argv[1:]) or "World"
     print(greeting(name))
 
 
