@@ -2,7 +2,7 @@ import sys
 
 
 def greeting(name="World"):
-    return f"Hello, {name}!"
+    return f"Hello {name}!"
 
 
 def main(argv):
