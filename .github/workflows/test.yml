@@ -11,9 +11,15 @@ on:
 permissions:
   contents: read
 
+# Push/PR mới trên cùng nhánh sẽ huỷ các lần chạy cũ đang chờ, đỡ tốn phút CI
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   pytest:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     strategy:
       matrix:
         python-version: ["3.10", "3.12"]
