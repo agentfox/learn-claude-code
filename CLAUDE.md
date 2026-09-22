@@ -19,9 +19,15 @@ Luôn trả lời và giải thích bằng tiếng Việt. Giữ nguyên tên l�
 
 Luôn gọi pytest qua `.venv/bin/python`, không dùng `pytest` của hệ thống (máy không cài sẵn).
 
+## CI/CD
+
+- `.github/workflows/test.yml`: chạy `pytest` trên GitHub Actions với Python 3.10 và 3.12, khi có PR vào `main` và khi push lên `main`.
+- Nhánh `main` có branch protection: PR chỉ merge được khi cả hai check CI xanh.
+- Hook `.claude/hooks/pytest-on-py-edit.sh` tự chạy pytest cục bộ sau khi Claude sửa một file `.py` (cấu hình trong `.claude/settings.local.json`). Thư mục `.claude/` bị gitignore, nên hook và các luật quyền này chỉ tồn tại trên máy hiện tại, không chia sẻ qua git.
+
 ## Cấu trúc
 
 - `hello.py`: script chỉ dùng thư viện chuẩn. `greeting(name)` trả về chuỗi chào, `main(argv)` nhận `argv` như tham số (không đọc `sys.argv` trực tiếp) để test truyền danh sách giả vào được.
 - `test_hello.py`: test pytest cho `hello.py`, dùng `capsys` để bắt stdout
-- `requirements-dev.txt`: phụ thuộc chỉ dùng khi phát triển (`pytest`)
+- `requirements-dev.txt`: phụ thuộc chỉ dùng khi phát triển (`pytest`, ghim theo major version)
 - `sample.txt`: ghi chú văn bản tĩnh, không có code nào đọc đến
