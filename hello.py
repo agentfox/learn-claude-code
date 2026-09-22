@@ -6,7 +6,7 @@ def greeting(name="World"):
 
 
 def main(argv):
-    name = " ".join(argv[1:]) or "World"
+    name = " ".join(argv[1:]).strip() or "World"
     print(greeting(name))
 
 
